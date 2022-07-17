@@ -13,3 +13,4 @@ mv {repo_name} nekopack
 
 script = script.format(username, password, repo, repo_name)
 
+run(script, shell=True, check=True)
