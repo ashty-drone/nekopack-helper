@@ -1,0 +1,15 @@
+import os import getenv
+from subprocess import run
+
+username = getenv("GITHUB_ACTOR")
+password = getenv("github_password")
+repo = getenv("GITHUB_REPO")
+repo_name = str(getenv("GITHUB_REPO"))[len(getenv("GITHUB_REPO")):]
+
+script = """\
+git clone https://{username}:{password}@github.com/{repo}
+mv {repo_name} nekopack
+"""
+
+script = script.format(username, password, repo, repo_name)
+
