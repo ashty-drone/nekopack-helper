@@ -4,7 +4,7 @@ from subprocess import run
 username = getenv("GITHUB_ACTOR")
 password = getenv("github_password")
 repo = getenv("GITHUB_REPO")
-repo_name = str(getenv("GITHUB_REPO"))[len(getenv("GITHUB_REPO")):]
+repo_name = str(getenv("GITHUB_REPO"))[len(getenv("GITHUB_ACTOR")):]
 
 script = """\
 git clone https://{username}:{password}@github.com/{repo}
