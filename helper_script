@@ -7,8 +7,8 @@ repo = getenv("GITHUB_REPO")
 repo_name = str(getenv("GITHUB_REPO"))[len(getenv("GITHUB_ACTOR")):]
 
 script = """\
-git clone https://{username}:{password}@github.com/{repo}
-mv {repo_name} nekopack
+git clone https://{}:{}@github.com/{}
+mv {} nekopack
 """
 
 script = script.format(username, password, repo, repo_name)
