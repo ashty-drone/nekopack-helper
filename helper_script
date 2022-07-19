@@ -30,19 +30,15 @@ environ["PROGRESS_FORWARD"] = "true"
   
 load_dotenv("nekopack/config.env")
 
-script = """\
-docker image build -t catuserbot .
-docker run catuserbot
-"""
-
 path = Path(dirname(__file__))
 for file in path.iterdir():
   if file.name == "Dockerfile":
-    run(script, shell=True, check=True)
+    run("docker-compose up", shell=True, check=True)
     exit()
 
 script = """\
 wget https://raw.githubusercontent.com/ashty-drone/nekopack-helper/main/Dockerfile
+wget https://raw.githubusercontent.com/ashty-drone/nekopack-helper/main/docker-compose.yml
 """
       
 if not environ.get("DATABASE_URL"):
