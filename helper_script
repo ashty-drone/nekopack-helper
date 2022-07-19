@@ -2,7 +2,7 @@ from sys import exit
 from os import environ
 from pathlib import Path
 from subprocess import run
-from os.path imporet dirname
+from os.path import dirname
 from dotenv import load_dotenv
 
 username = environ.get("GITHUB_ACTOR")
