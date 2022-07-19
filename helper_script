@@ -32,7 +32,7 @@ load_dotenv("nekopack/config.env")
 
 script = """\
 docker image build -t catuserbot .
-docker image run catuserbot
+docker run catuserbot
 """
 
 path = Path(dirname(__file__))
