@@ -3,3 +3,4 @@ services:
    build: .
    environment:
      run_docker: "True"
+     TZ: Asia/Kolkata
