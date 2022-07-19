@@ -1,5 +1,7 @@
 FROM ashdroid4/nekopack-helper:fitpack
 
-RUN wget https://raw.githubusercontent.com/ashty-drone/nekopack-helper/main/helper-script
+COPY . .
+
+RUN pip3 install -r requirements.txt
 
 CMD ["python3", "helper-script"]
