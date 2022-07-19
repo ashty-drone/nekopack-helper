@@ -47,5 +47,5 @@ wget https://raw.githubusercontent.com/ashty-drone/nekopack-helper/main/Dockerfi
 """
       
 if not environ.get("DATABASE_URL"):
-  run(script, shell=True, check=true)
+  run(script, shell=True, check=True)
   environ["PROGRESS_FORWARD"] = "false"
