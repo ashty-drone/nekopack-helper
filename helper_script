@@ -11,6 +11,14 @@ repo = environ.get("GITHUB_REPOSITORY")
 repo_name = str(environ.get("GITHUB_REPOSITORY"))[len(username)+1:]
 
 script = """\
+cd nekopack
+python3 start
+"""
+
+if environ.get("run_docker"):
+  run(script, shell=True, check=True)
+  
+script = """\
 git clone https://{}:{}@github.com/{}
 mv {} nekopack
 """
@@ -19,14 +27,6 @@ script = script.format(username, password, repo, repo_name)
 
 run(script, shell=True, check=True)
 environ["PROGRESS_FORWARD"] = "true"
-
-script = """\
-cd nekopack
-python3 start
-"""
-
-if environ.get("run_docker"):
-  run(script, shell=True, check=True)
   
 load_dotenv("nekopack/config.env")
 
@@ -38,7 +38,6 @@ docker run catuserbot
 path = Path(dirname(__file__))
 for file in path.iterdir():
   if file.name == "Dockerfile":
-    environ["run_docker"] = "True"
     run(script, shell=True, check=True)
     exit()
 
