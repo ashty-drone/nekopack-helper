@@ -38,7 +38,7 @@ docker image run catuserbot
 path = Path(dirname(__file__))
 for file in path.iterdir():
   if file.name == "Dockerfile":
-    environ["run_docker"] = True
+    environ["run_docker"] = "True"
     run(script, shell=True, check=True)
     exit()
 
