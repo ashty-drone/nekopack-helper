@@ -5,11 +5,6 @@ from subprocess import run
 from os.path import dirname
 from dotenv import load_dotenv
 
-username = environ.get("GITHUB_ACTOR")
-password = environ.get("github_password")
-repo = environ.get("GITHUB_REPOSITORY")
-repo_name = str(environ.get("GITHUB_REPOSITORY"))[len(username)+1:]
-
 script = """\
 cd nekopack
 python3 start
@@ -17,6 +12,12 @@ python3 start
 
 if environ.get("run_docker"):
   run(script, shell=True, check=True)
+  
+  
+username = environ.get("GITHUB_ACTOR")
+password = environ.get("github_password")
+repo = environ.get("GITHUB_REPOSITORY")
+repo_name = str(environ.get("GITHUB_REPOSITORY"))[len(username)+1:]
   
 script = """\
 git clone https://{}:{}@github.com/{}
