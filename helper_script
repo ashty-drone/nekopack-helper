@@ -3,8 +3,6 @@ from os import environ
 from pathlib import Path
 from subprocess import run
 from os.path import dirname
-
-run("pip3 install python3-dotenv")
 from dotenv import load_dotenv
 
 script = """\
