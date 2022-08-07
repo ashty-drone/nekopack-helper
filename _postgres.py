@@ -1,4 +1,5 @@
 from os import environ, getenv
+from telethon.sessions import StringSession
 from telethon import TelegramClient, functions
 from telethon.tl.types import InputMessagesFilterDocument as document
 
@@ -53,7 +54,7 @@ async def getBackupSQL():
 
   
 cat = TelegramClient(
-    getenv('STRING_SESSION'), 
+    StringSession(getenv('STRING_SESSION')), 
     getenv('APP_ID'), 
     getenv('API_HASH')
 )
