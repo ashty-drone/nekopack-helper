@@ -27,7 +27,7 @@ async def joinBackupChannels():
   return channel_id
   
 async def getBackupSQL():
-  async def iter_backup_sql(chat, download=False)
+  async def iter_backup_sql(chat, download=False):
     async def iterBackupSql(chat, download=False):
       async for message in client.iter_messages(chat, filter=document):
         if "#SQL_BACKUP" in message.text:
