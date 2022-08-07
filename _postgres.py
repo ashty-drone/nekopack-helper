@@ -2,12 +2,6 @@ from os import environ, getenv
 from telethon import TelegramClient, functions
 from telethon.tl.types import InputMessagesFilterDocument as document
 
-cat = TelegramClient(
-    getenv('STRING_SESSION'), 
-    getenv('APP_ID'), 
-    getenv('API_HASH')
-)
-
 async def getBackupChannels():
   async def get_backup_channel():
     async with client.takeout(finalize=True) as takeout: #credits to https://t.me/UniBorg/142
@@ -57,7 +51,12 @@ async def getBackupSQL():
         iter_backup_sql(channel_id[sorted_date[0]], download=True)
         
 
-        
+  
+cat = TelegramClient(
+    getenv('STRING_SESSION'), 
+    getenv('APP_ID'), 
+    getenv('API_HASH')
+)
 cat.run(getBackupSQL())
           
       
