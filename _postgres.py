@@ -9,13 +9,16 @@ cat = TelegramClient(
 )
 
 async def getBackupChannels():
-  async with client.takeout(finalize=True) as takeout: #credits to https://t.me/UniBorg/142
-    result = await takeout(functions.channels.GetLeftChannelsRequest(offset=0))
-    channel_id = []
-  for chat in result.chats:
-    if chat.title == 'CatUserbot Database Backup Group':
-       channel_id.append(chat.id)
-  return channel_id
+  async def get_backup_channel():
+    async with client.takeout(finalize=True) as takeout: #credits to https://t.me/UniBorg/142
+      result = await takeout(functions.channels.GetLeftChannelsRequest(offset=0))
+      channel_id = []
+    for chat in result.chats:
+      if chat.title == 'CatUserbot Database Backup Group':
+        channel_id.append(chat.id)
+    return channel_id
+  try: await get_back_channel()
+  except: return None
 
 async def joinBackupChannels():
   channel_id = await getBackupChannels()
