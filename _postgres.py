@@ -41,7 +41,7 @@ async def getBackupSQL():
         x = await client.send_message(chat, "HI")
         x.delete()
         await iter_backup_sql(chat, download=download)
-  channel_id = getenv("CATUSERBOT_DATABASE_GROUP_ID"):
+  channel_id = getenv("CATUSERBOT_DATABASE_GROUP_ID")
   if channel_id:
     iter_backup_sql(int((str(channel_id)).strip()), download=True)
   else:
