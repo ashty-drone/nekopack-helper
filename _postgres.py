@@ -24,14 +24,20 @@ async def joinBackupChannels():
   return channel_id
   
 async def getBackupSQL():
-  async def iter_backup_sql(chat, download=False):
-    async for message in client.iter_messages(chat, filter=document):
-      if "#SQL_BACKUP" in message.text:
-        date = message.date
-        if download:
-          download = await client.download_media(message)
-          return
-        return date
+  async def iter_backup_sql(chat, download=False)
+    async def iterBackupSql(chat, download=False):
+      async for message in client.iter_messages(chat, filter=document):
+        if "#SQL_BACKUP" in message.text:
+          date = message.date
+          if download:
+            download = await client.download_media(message)
+            return
+          return date
+    try: await iterBackupSql(chat, download=download)
+    except:
+        x = await client.send_message(chat, "HI")
+        x.delete()
+        await iter_backup_sql(chat, download=download)
   channel_id = getenv("CATUSERBOT_DATABASE_GROUP_ID"):
   if channel_id:
     iter_backup_sql(int((str(channel_id)).strip()), download=True)
@@ -44,8 +50,12 @@ async def getBackupSQL():
         date = []
         for chat in channel_id:
           date.append(iter_backup_sql(channel_id))
-        date.sort(reverse=True)
-        while True:
+        sorted_date = sorted(range(len(date)), key=lambda n: date[n], reverse=True)
+        iter_backup_sql(channel_id[sorted_date[0]], download=True)
+        
+
+        
+cat.run(getBackupSQL())
           
       
     
