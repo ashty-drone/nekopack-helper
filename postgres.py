@@ -64,11 +64,13 @@ async def backupSQL():
   run(sql_script, shell=True)
   sql_backup_path = Path(sql_backup_path)
   sql_backup_path.rename('./catuserbot.sql')
-  await client.send_message(getenv("PRIVATE_GROUP_BOT_API_ID"), "#SQL_BACKUP", file="catuserbot.sql")
+  message = "#SQL_BACKUP\nYour database has been backed up!"
+  await client.send_message(getenv("PRIVATE_GROUP_BOT_API_ID"), message, file="catuserbot.sql")
 
 async def timer_backup():
-  await backupSQL()
-  sleep(900)
+  while True:
+    await backupSQL()
+    sleep(900)
 
 with cat as client: client.loop.run_until_complete(timer_backup())
   
