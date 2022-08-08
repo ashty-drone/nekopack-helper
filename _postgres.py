@@ -7,7 +7,7 @@ print("check 0")
 
 async def getBackupChannels():
   async def get_backup_channel():
-    async with client.takeout(finalize=True) as takeout: #credits to https://t.me/UniBorg/142
+    async with cat.takeout(finalize=True) as takeout: #credits to https://t.me/UniBorg/142
       result = await takeout(functions.channels.GetLeftChannelsRequest(offset=0))
       channel_id = []
     for chat in result.chats:
@@ -22,24 +22,24 @@ async def joinBackupChannels():
   channel_id = await getBackupChannels()
   if not channel_id: return channel_id
   for chat in channel_id:
-    await client(functions.channels.JoinChannelRequest(channel=chat))
+    await cat(functions.channels.JoinChannelRequest(channel=chat))
     print("check 2")
   return channel_id
   
 async def getBackupSQL():
   async def iter_backup_sql(chat, download=False):
     async def iterBackupSql(chat, download=False):
-      async for message in client.iter_messages(chat, filter=document):
+      async for message in cat.iter_messages(chat, filter=document):
         if "#SQL_BACKUP" in message.text:
           date = message.date
           if download:
-            download = await client.download_media(message)
+            download = await cat.download_media(message)
             print("check 5")
             return
           return date
     try: await iterBackupSql(chat, download=download)
     except:
-        x = await client.send_message(chat, "HI")
+        x = await cat.send_message(chat, "HI")
         x.delete()
         await iter_backup_sql(chat, download=download)
   channel_id = getenv("CATUSERBOT_DATABASE_GROUP_ID")
@@ -66,7 +66,7 @@ cat = TelegramClient(
     getenv('APP_ID'), 
     getenv('API_HASH')
 )
-with cat as client: client.loop.run_until_complete(getBackupSQL())
+with cat: cat.loop.run_until_complete(getBackupSQL())
           
       
     
