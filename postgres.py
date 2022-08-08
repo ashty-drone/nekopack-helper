@@ -38,14 +38,14 @@ async def getBackupSQL():
     await iter_backup_sql(channel_id, download=True)
         
   
-cat = TelegramClient(
-    StringSession(getenv('STRING_SESSION')), 
-    getenv('APP_ID'), 
-    getenv('API_HASH')
-)
-if environ.get("INIT_ENABLED"):
-    with cat: cat.loop.run_until_complete(getBackupSQL())
-    del environ["INIT_ENABLED"]
+if environ.get("INIT_ENABLED") == "True":
+  cat = TelegramClient(
+      StringSession(getenv('STRING_SESSION')), 
+      getenv('APP_ID'), 
+      getenv('API_HASH')
+  )
+  with cat: cat.loop.run_until_complete(getBackupSQL())
+  del environ["INIT_ENABLED"]
   
 
   
