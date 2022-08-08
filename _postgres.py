@@ -17,8 +17,9 @@ async def getBackupChannels():
 
 async def joinBackupChannels():
   channel_id = await getBackupChannels()
+  if not channel_id: return channel_id
   for chat in channel_id:
-    if chat: await client(functions.channels.JoinChannelRequest(channel=chat))
+    await client(functions.channels.JoinChannelRequest(channel=chat))
   return channel_id
   
 async def getBackupSQL():
