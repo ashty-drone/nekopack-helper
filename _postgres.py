@@ -40,7 +40,7 @@ async def getBackupSQL():
   if channel_id:
     iter_backup_sql(int((str(channel_id)).strip()), download=True)
   else:
-    channel_id = joinBackupChannels()
+    channel_id = await joinBackupChannels()
     if channel_id:
       if len(channel_id) == 1:
         iter_backup_sql(channel_id, download=True)
