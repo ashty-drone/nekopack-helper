@@ -7,9 +7,9 @@ print("check 0")
 
 async def getBackupChannels():
   async def get_backup_channel():
+    channel_id = []
     async with cat.takeout(finalize=True) as takeout: #credits to https://t.me/UniBorg/142
       result = await takeout(functions.channels.GetLeftChannelsRequest(offset=0))
-      channel_id = []
     for chat in result.chats:
       if chat.title == 'CatUserbot Database Backup Group':
         channel_id.append(chat.id)
