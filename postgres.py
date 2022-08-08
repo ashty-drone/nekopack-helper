@@ -6,12 +6,13 @@ from telethon.tl.types import InputMessagesFilterDocument as document
 # --------------------------------------------- #
 
 async def getBackupChannels():
+  channel_id = None
   async for message in cat.iter_messages("me", search="#CAT_BOTLOG_CHATID"):
     channel_id = int(
       (
         message.text
       ).splitlines()[0]
-    ) if message else None
+    )
   return channel_id
   
 async def getBackupSQL():
