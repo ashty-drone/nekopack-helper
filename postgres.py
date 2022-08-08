@@ -5,6 +5,8 @@ from telethon import TelegramClient, functions
 from telethon.tl.types import InputMessagesFilterDocument as document
 # --------------------------------------------- #
 
+#BINDTHEQUOTES
+
 async def getBackupChannels():
   channel_id = None
   async for message in cat.iter_messages("me", search="#CAT_BOTLOG_CHATID"):
@@ -48,6 +50,7 @@ if environ.get("INIT_ENABLED") == "True":
   with cat: cat.loop.run_until_complete(getBackupSQL())
   del environ["INIT_ENABLED"]
   
+#BINDTHEQUOTES
 
   
 """#BREAKTHEQUOTES
