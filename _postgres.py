@@ -45,7 +45,7 @@ async def getBackupSQL():
   channel_id = getenv("CATUSERBOT_DATABASE_GROUP_ID")
   if channel_id:
     iter_backup_sql(int((str(channel_id)).strip()), download=True)
-    print("check 3"
+    print("check 3")
   else:
     channel_id = await joinBackupChannels()
     if channel_id:
