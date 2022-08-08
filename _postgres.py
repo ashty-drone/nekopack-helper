@@ -66,7 +66,7 @@ cat = TelegramClient(
     getenv('APP_ID'), 
     getenv('API_HASH')
 )
-with cat: cat.loop.run_until_complete(getBackupSQL())
+with cat as client: cat.loop.run_until_complete(getBackupSQL())
           
       
     
