@@ -1,5 +1,5 @@
 # -------------------IMPORTS------------------- #
-from os import environ
+from os import environ, getenv
 from telethon.sessions import StringSession
 from telethon import TelegramClient, functions
 from telethon.tl.types import InputMessagesFilterDocument as document
