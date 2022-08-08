@@ -51,10 +51,10 @@ if environ.get("INIT_ENABLED"):
   
 """#BREAKTHEQUOTES
 # ---------IMPORTS--------- #
+import asyncio
 from os import getenv
 from pathlib import Path
 from userbot import catub
-from asyncio import sleep
 from subprocess import run
 # ------------------------- #
 
@@ -68,11 +68,18 @@ async def backupSQL():
   await client.send_message(getenv("PRIVATE_GROUP_BOT_API_ID"), message, file="catuserbot.sql")
 
 async def timer_backup():
+  async for message in cat.iter_messages("me", search="#CAT_BOTLOG_CHATID"):
+    await message.delete()
+  message = ("{getenv("PRIVATE_GROUP_BOT_API_ID")}\n" +
+             "#CAT_BOTLOG_CHATID\n" +
+             "You are running on local Database. Please don't delete this message")
+  await client.send_message("me", message)
   while True:
     await backupSQL()
-    sleep(900)
+    asyncio.sleep(900)
 
-with cat as client: client.loop.run_until_complete(timer_backup())
+event = asyncio.get_running_loop()
+event.create_task(timer_backup())
   
 @catub.cat_cmd(
   pattern="savedb$",
