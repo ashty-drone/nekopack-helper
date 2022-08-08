@@ -1,29 +1,17 @@
-from os import environ, getenv
+# -------------------IMPORTS------------------- #
+from os import environ
 from telethon.sessions import StringSession
 from telethon import TelegramClient, functions
 from telethon.tl.types import InputMessagesFilterDocument as document
-
-print("check 0")
+# --------------------------------------------- #
 
 async def getBackupChannels():
-  async def get_backup_channel():
-    channel_id = []
-    async with cat.takeout(finalize=True) as takeout: #credits to https://t.me/UniBorg/142
-      result = await takeout(functions.channels.GetLeftChannelsRequest(offset=0))
-    for chat in result.chats:
-      if chat.title == 'CatUserbot Database Backup Group':
-        channel_id.append(chat.id)
-    print("check 1")
-    return channel_id
-  try: await get_back_channel()
-  except: return None
-
-async def joinBackupChannels():
-  channel_id = await getBackupChannels()
-  if not channel_id: return channel_id
-  for chat in channel_id:
-    await cat(functions.channels.JoinChannelRequest(channel=chat))
-    print("check 2")
+  async for message in cat.iter_messages("me", search="#CAT_BOTLOG_CHATID"):
+    channel_id = int(
+      (
+        message.text
+      ).splitlines()[0]
+    ) if message else None
   return channel_id
   
 async def getBackupSQL():
@@ -34,7 +22,6 @@ async def getBackupSQL():
           date = message.date
           if download:
             download = await cat.download_media(message)
-            print("check 5")
             return
           return date
     try: await iterBackupSql(chat, download=download)
@@ -42,33 +29,66 @@ async def getBackupSQL():
         x = await cat.send_message(chat, "HI")
         x.delete()
         await iter_backup_sql(chat, download=download)
-  channel_id = getenv("CATUSERBOT_DATABASE_GROUP_ID")
+  channel_id = getenv("PRIVATE_GROUP_BOT_API_ID")
   if channel_id:
     await iter_backup_sql(int((str(channel_id)).strip()), download=True)
-    print("check 3")
   else:
-    channel_id = await joinBackupChannels()
-    if channel_id:
-      if len(channel_id) == 1:
-        await iter_backup_sql(channel_id, download=True)
-        print("check 4")
-      else:
-        date = []
-        for chat in channel_id:
-          date.append(iter_backup_sql(channel_id))
-        sorted_date = sorted(range(len(date)), key=lambda n: date[n], reverse=True)
-        await iter_backup_sql(channel_id[sorted_date[0]], download=True)
+    channel_id = await getBackupChannels()
+    if not channel_id: return
+    await iter_backup_sql(channel_id, download=True)
         
-
   
 cat = TelegramClient(
     StringSession(getenv('STRING_SESSION')), 
     getenv('APP_ID'), 
     getenv('API_HASH')
 )
-with cat: cat.loop.run_until_complete(getBackupSQL())
-          
-      
+if environ.get("INIT_ENABLED"):
+    with cat: cat.loop.run_until_complete(getBackupSQL())
+    del environ["INIT_ENABLED"]
+  
+
+  
+"""#BREAKTHEQUOTES
+# ---------IMPORTS--------- #
+from os import getenv
+from pathlib import Path
+from userbot import catub
+from asyncio import sleep
+from subprocess import run
+# ------------------------- #
+
+async def backupSQL():
+  sql_backup_path = "/var/lib/postgresql/catuserbot.sql"
+  sql_script = "su - postgres -c 'pg_dump catuserbot > catuserbot.sql'"
+  run(sql_script, shell=True)
+  sql_backup_path = Path(sql_backup_path)
+  sql_backup_path.rename('./catuserbot.sql')
+  await client.send_message(getenv("PRIVATE_GROUP_BOT_API_ID"), "#SQL_BACKUP", file="catuserbot.sql")
+  
+async def timer_backup():
+  sleep(900)
+  await backupSQL()
+
+with cat as client: client.loop.run_until_complete(timer_backup())
+  
+@catub.cat_cmd(
+  pattern="savedb$",
+  command=("savedb", "tools"),
+  info={
+      "header": "You can use this command to immediately backup your local database.",
+      "description": (
+          "If you are not using elephantsql and are dependant on Local Database, " +
+          "please use this command to immediately backup your database otherwise your database will not be saved" +
+          " and you might lose data such as snips, alive vars, etc. " +
+          "**But don't sweat too much. Your database is automatically saved every 15 mins.**"
+      ),
+      "usage": "{tr}savedb
+  }
+)
+async def savedb(event):
+  await backupSQL()
+"""#BREAKTHEQUOTES
     
     
     
