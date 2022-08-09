@@ -54,7 +54,7 @@ if environ.get("INIT_ENABLED") == "True":
 #BINDTHEQUOTES
 
   
-#"""#BREAKTHEQUOTES
+"""#BREAKTHEQUOTES
 # ---------IMPORTS--------- #
 import asyncio
 from os import getenv
@@ -84,7 +84,7 @@ async def timer_backup():
     asyncio.sleep(900)
 
 
-with cat as client: client.loop.run_until_complete(timer_backup()
+with cat as client: client.loop.run_until_complete(timer_backup())
   
 @catub.cat_cmd(
   pattern="savedb$",
