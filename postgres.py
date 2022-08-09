@@ -57,7 +57,6 @@ if environ.get("INIT_ENABLED") == "True":
 """#BREAKTHEQUOTES
 # ---------IMPORTS--------- #
 import asyncio
-from os import getenv
 from pathlib import Path
 from userbot import catub
 from subprocess import run
