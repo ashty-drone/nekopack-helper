@@ -83,7 +83,7 @@ async def timer_backup():
     asyncio.sleep(900)
 
 
-cat.loop.run_until_complete(timer_backup())
+catub.loop.run_until_complete(timer_backup())
   
 @catub.cat_cmd(
   pattern="savedb$",
